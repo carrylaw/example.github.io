@@ -1,4 +1,4 @@
-var perPageItem = 10;
+var perPageItem = 1;
 var leftNum = $('div.hidden').length;
 var $loading = $("<div class='loading' style='text-align:center !important;'><img src='/public/img/loading.gif'></div>");
 /**
