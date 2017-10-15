@@ -1,8 +1,8 @@
 --- 
 layout: default 
 title: Home 
-initItem: 10
-perPageItem: 10
+initItem: 2
+perPageItem: 2
 ---
 
 <div class="posts">
@@ -31,14 +31,42 @@ perPageItem: 10
 	var articles;
 	$.getJSON("/public/json/search.json").done(function(data) {
 		articles = data;
-		getArticles();
+		totalNum = articles.length;
+		initArticles(); 
 	});
+	
+	/**
+	 * get the bottom offset of an element
+	*/
+	function getOffsetBottom(selector){
+		var offsetTop = $(selector).offset().top;
+		var documentHeight = $(selector).height();
+		var offsetBottom = $(window).height()-(offsetTop+documentHeight);
+		return offsetBottom;
+	}
+
+	/**
+	 * init the frist batch of articles to activate waypoint
+	 */
+	function initArticles() {
+		var offsetBottom = getOffsetBottom('div.post:last');
+		while(offsetBottom>0 && endNum<totalNum){
+			getArticles();
+			offsetBottom = getOffsetBottom('div.post:last');
+			increment();
+		}
+		getArticlesInfinite();
+	}
+
+	function getArticlesInfinite(){
+		getArticles();
+		createWaypoint();
+	}
 	
 	function getArticles() {
 		$('div.posts').append($loading);
 		var htmlArr = new Array();
 		var currentData = null;
-		totalNum = articles.length;
 		endNum = endNum>totalNum?totalNum:endNum;
 		for(var i=startNum; i<endNum;i++){
 			currentData = articles[i];
@@ -59,19 +87,18 @@ perPageItem: 10
 		}
 		$('div.loading').remove();
 		$('.posts').append(htmlArr.join('').toString());
-		createWaypoint();
 	}
 	
 	function createWaypoint() {
 		$('div.posts div.post:last').waypoint(function(direction) {
-			if(startNum==endNum) {
+			if(startNum==totalNum) {
 				this.destroy();
 				return; //all articles have been loaded
 			}
 			if(direction == "down") {
-				increment();
 				this.destroy();
-				getArticles();
+				increment();
+				getArticlesInfinite();
 			}
 		}, {
 			offset: 'bottom-in-view'
@@ -98,7 +125,7 @@ perPageItem: 10
 	function increment(){
 		startNum = endNum; //let next startNum equals last endNum
 		pageNum++;
-		endNum+=perPageItem*pageNum;
+		endNum =perPageItem*pageNum;
 	}
 	
 </script>
