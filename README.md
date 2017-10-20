@@ -24,7 +24,7 @@ c). 瀑布流翻页
 ![change url](https://raw.githubusercontent.com/bigablecat/example.github.io/master/public/img/change_url.png)  
 
 三个步骤完成后，如果发布成功，可以在当前项目settings的GitHub Pages项中看到设置成功的提示:
-![successfull tip](https://raw.githubusercontent.com/bigablecat/example.github.io/master/public/img/published.png)  
+![success tip](https://raw.githubusercontent.com/bigablecat/example.github.io/master/public/img/published.png)  
 
 
 ### 3. 发布文章:
@@ -61,7 +61,7 @@ a). 当前主题的jekyll主题样式参考来源:
 b). 翻页实现方式参考来源:  
 **i.** [用Jekyll和jQuery实现异步加载文章列表(作者ypchen)](https://alfred-sun.github.io/blog/2014/12/11/jekykll-jquery-asyn-load/)  
 
-**ii.** [pagination](http://imakewebthings.com/waypoints/)  
+**ii.** [pagination using waypoints.js](http://imakewebthings.com/waypoints/)  
 
 c). 主题中使用到的其他js插件:  
 **i.** [typeahead功能](http://www.runningcoder.org/jquerytypeahead/)  
@@ -135,9 +135,4 @@ a). The style of this theme is extracted from the following themes:
 **ii.** [http://www.minddust.com](http://www.minddust.com/)  
 
 c). The pagination references:  
-**i.** [(Chinese)用Jekyll和jQuery实现异步加载文章列表(作者ypchen)](https://alfred-sun.github.io/blog/2014/12/11/jekykll-jquery-asyn-load/)  
-
-**ii.** [pagination](http://imakewebthings.com/waypoints/)  
-
-b). Other js plugins used in this theme:  
-**i.** [typeahead](http://www.runningcoder.org/jquerytypeahead/)  
+**i.** [(Chinese)用Jekyll和jQuery实现异步加载文章列表(作者y
