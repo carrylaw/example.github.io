@@ -6,7 +6,6 @@ perPageItem: 2
 ---
 
 <div class="posts">
-	<div class="post" hidden></div>
 </div>
 <script>
 	/**
@@ -24,7 +23,7 @@ perPageItem: 2
 	var pageNum = 0;
 	var perPageItem = {{page.perPageItem}};
 	var startNum = 0;
-	var endNum = {{page.initItem}} + perPageItem*pageNum;
+	var endNum = {{page.initItem}};
 	var totalNum = 0;
 	var $loading = $("<div class='loading' style='text-align:center !important;'><img src='/public/img/loading.gif'></div>");
 	
@@ -39,6 +38,9 @@ perPageItem: 2
 	 * get the bottom offset of an element
 	*/
 	function getOffsetBottom(selector){
+		if($(selector).offset()==undefined){
+			return 1;
+		}
 		var offsetTop = $(selector).offset().top;
 		var documentHeight = $(selector).height();
 		var offsetBottom = $(window).height()-(offsetTop+documentHeight);
@@ -50,12 +52,16 @@ perPageItem: 2
 	 */
 	function initArticles() {
 		var offsetBottom = getOffsetBottom('div.post:last');
-		while(offsetBottom>0 && endNum<totalNum){
+		while(offsetBottom>0 && startNum<totalNum){
 			getArticles();
 			offsetBottom = getOffsetBottom('div.post:last');
 			increment();
 		}
-		getArticlesInfinite();
+		if($('div.post:last').length==0){
+			$('div.posts').html('<p>There are no post matches.</p>')
+		}else{
+			getArticlesInfinite();
+		}
 	}
 
 	function getArticlesInfinite(){
@@ -125,7 +131,7 @@ perPageItem: 2
 	function increment(){
 		startNum = endNum; //let next startNum equals last endNum
 		pageNum++;
-		endNum =perPageItem*pageNum;
+		endNum += perPageItem;
 	}
 	
 </script>

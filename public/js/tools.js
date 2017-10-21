@@ -3,7 +3,13 @@
  */
 function encodeKeyword() {
 	var keywordStr = $('input.js-typeahead').val();
-	$('input.js-typeahead').val(encodeURI(keywordStr));
+	var ua = navigator.userAgent.toLowerCase();	
+	if (/iphone|ipad|ipod/.test(ua)) {
+		var baseUrl = "https://"+window.location.host+"/search/?q="+ encodeURI(keywordStr);
+		window.location.href= baseUrl;
+	}else{
+		$('input.js-typeahead').val(encodeURI(keywordStr));
+	}
 }
 
 /**
